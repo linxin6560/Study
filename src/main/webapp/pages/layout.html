@@ -1,0 +1,147 @@
+<#macro layout  title keywords="abap,sap,mike,刘哲强,java,javscript,jfinal"
+                desc="主要关注abap,java,jfinal技术，分享学习工作中的经验">
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  		<meta http-equiv="Content-Language" content="zh-CN">
+  		<title>${title}</title>
+  		<link rel="shortcut icon" type="image/x-icon" href="${path}/img/s/favicon.ico">
+  		<meta name="Keywords" content="${keywords}">
+  		<meta name="Description" content="${desc}">
+	    <link href="${path}/css/layout.css" rel="stylesheet" type="text/css">
+	    <script type="text/javascript">
+	    	var path = '${path}';
+	    </script>
+	    <script type="text/javascript" src="${path}/js/jquery.js"></script>
+	    <script type="text/javascript" src="${path}/js/layout.js"></script>
+	</head>
+	<body>
+		<div id="nav">
+	        <div class="container">
+	        	<div class="mainnav">
+	             	<a class="subnav" href="${path}/">博客 |</a>
+				</div>
+				<div class="mainnav">
+					<a class="subnav" href="${path}/">首页</a>
+				</div>
+				<#list categorySuperList as categorySuper>
+				<div class="mainnav">
+	             	<a class="subnav" href="${path}/categorySuper/${categorySuper.id}.html">${categorySuper.name}</a>
+	             	<ul class="dropdown">
+	                 	 <#list categorySuper.categorySubList as categorySub>
+						 <li>
+						 	<a href="${path}/categorySub/${categorySub.id}.html">${categorySub.name}</a>
+						 </li>
+						 </#list>
+						 <div class="clear"></div>
+					</ul>
+	            </div>
+	            </#list>
+	            <div class="mainnav">
+	             	<a class="subnav" href="${path}/me.html">@ 我 @</a>
+				</div>
+				<div class="fr">
+					<form id="search" action="/search.html">
+						<input id="search_ipt" type="text" name="q" value="${q!}">
+						<button id="search_btn" type="submit">搜索</button>
+					</form>
+				</div>
+	        </div>
+        </div>
+        <div id="header">
+        	<div class="container">
+		    	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+		    		<tr>
+		    			<td width="20">
+
+		    			</td>
+		    			<td width="240">
+		    				<a href="${path}/" id="logo">
+		    					<h3>
+		    						Mike Liu 的博客
+		    					</h3>
+		    				</a>
+		    			</td>
+		    			<td valign="bottom">
+		    				分享学习、工作中的经验
+		    			</td>
+		    		</tr>
+		    	</table>
+        	</div>
+        </div>
+        <div id="content" class="container">
+            <#nested>
+        </div>
+        <div id="footer" class="container">
+        	<hr/>
+        	<div id="links">
+	        	<h3>友情链接</h3>
+	        	<a target="_blank" href="http://www.jyyiguang.com/">江阴亿光电子照明有限公司</a>
+	        </div>
+        	
+        	Author:Mike Liu <a href="${path}/admin" target="_blank">后台管理</a>
+        	<div>
+        		<script src="http://s19.cnzz.com/stat.php?id=4876176&web_id=4876176&show=pic" language="JavaScript">
+        		</script>
+        	</div>
+        </div>
+	    <div id="top">
+	    	
+	    </div>
+	    <div id="message"></div>
+	    <div id="popup">
+	    	<h3 id="popup_title"></h3>
+	    	<img src="/img/s/close.png" title="关闭" id="popup_close"/>
+	    	<div id="popup_content"></div>
+	    </div>
+	</body>
+</html>
+</#macro>
+
+
+<#macro pagination prefix="" pageNum=1 totalPage=1 >
+	<#if totalPage == 0>
+		<#assign _totalPage = 1 />
+	<#else>
+		<#assign _totalPage = totalPage />
+	</#if>
+	<#if _totalPage != 1>
+	<ul class="pagination">
+		<#if pageNum == 1>
+			<li><a href="javascript:;" class="first disable">&lt;&lt;</a></li>
+			<li><a href="javascript:;" class="disable">&lt;</a></li>
+		<#else>
+			<li><a href="?p=1${prefix}" class="first">&lt;&lt;</a></li>
+			<li><a href="?p=${pageNum-1}${prefix}">&lt;</a></li>
+		</#if>
+		<#if ( _totalPage - pageNum ) gt 6>
+			<#assign endIndex = ( pageNum + 6) />
+		<#else>
+			<#assign endIndex = _totalPage />
+		</#if>
+		<#if ( pageNum - 3 ) gt 0>
+			<#assign startIndex = ( pageNum - 3) />
+		<#else>
+			<#assign startIndex = 1 />
+		</#if>
+		<#list startIndex..endIndex as _pageNum>
+		<li>
+			<#if _pageNum == pageNum>
+				<a href="javascript:;" class="active">${_pageNum}</a>
+			<#else>
+				<a href="?p=${_pageNum}${prefix}">${_pageNum}</a>
+			</#if>
+
+		</li>
+		</#list>
+		<#if pageNum == _totalPage>
+			<li><a href="javascript:;" class="disable">&gt;</a></li>
+			<li><a href="javascript:;" class="disable">&gt;&gt;</a></li>
+		<#else>
+			<li><a href="?p=${pageNum+1}${prefix}">&gt;</a></li>
+			<li><a href="?p=${_totalPage}${prefix}">&gt;&gt;</a></li>
+		</#if>
+	</ul>
+	</#if>
+</#macro>
