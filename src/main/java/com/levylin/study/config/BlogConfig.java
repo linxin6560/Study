@@ -1,31 +1,29 @@
 package com.levylin.study.config;
 
-import java.util.TimeZone;
-import java.util.TreeSet;
-
-import com.jfinal.kit.StrKit;
-import com.jfinal.plugin.activerecord.ModelRecordElResolver;
-import com.levylin.study.controller.*;
-import com.levylin.study.controller.admin.*;
-import com.levylin.study.handler.HtmlExtensionHandler;
-import com.levylin.study.lucene.ArticleLuceneService;
-import com.levylin.study.model.CategorySuper;
-import com.levylin.study.model._MappingKit;
-import org.apache.log4j.Logger;
-
 import com.alibaba.fastjson.JSONObject;
-import com.jfinal.config.Constants;
-import com.jfinal.config.Handlers;
-import com.jfinal.config.Interceptors;
-import com.jfinal.config.JFinalConfig;
-import com.jfinal.config.Plugins;
-import com.jfinal.config.Routes;
+import com.jfinal.config.*;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.FreeMarkerRender;
-
+import com.levylin.study.controller.CategorySubController;
+import com.levylin.study.controller.CategorySuperController;
+import com.levylin.study.controller.MeController;
+import com.levylin.study.controller.TagController;
+import com.levylin.study.controller.admin.CategoryController;
+import com.levylin.study.controller.admin.FileController;
+import com.levylin.study.controller.admin.PictureController;
+import com.levylin.study.controller.admin.UserController;
+import com.levylin.study.handler.HtmlExtensionHandler;
+import com.levylin.study.lucene.ArticleLuceneService;
+import com.levylin.study.model.CategorySuper;
+import com.levylin.study.model._MappingKit;
 import freemarker.template.TemplateModelException;
+import org.apache.log4j.Logger;
+
+import java.util.TimeZone;
+import java.util.TreeSet;
 
 public class BlogConfig extends JFinalConfig {
 
@@ -128,5 +126,4 @@ public class BlogConfig extends JFinalConfig {
             log.error("set freemarkerrender share variable categorySuperList failed", e);
         }
     }
-
 }
