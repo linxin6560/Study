@@ -2,8 +2,8 @@ package com.levylin.study.controller;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
-import com.levylin.study.core.BlogConstants;
-import com.levylin.study.pojo.Article;
+import com.levylin.study.config.BlogConstants;
+import com.levylin.study.model.Article;
 
 public class TagController extends Controller {
     public void index() {

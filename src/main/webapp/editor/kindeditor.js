@@ -4424,7 +4424,7 @@ function _plugin(name, fn) {
 }
 var _language = {};
 function _parseLangKey(key) {
-	var match, ns = 'core';
+	var match, ns = 'config';
 	if ((match = /^(\w+)\.(\w+)$/.exec(key))) {
 		ns = match[1];
 		key = match[2];
@@ -5383,7 +5383,7 @@ K.create = _create;
 K.instances = _instances;
 K.plugin = _plugin;
 K.lang = _lang;
-_plugin('core', function(K) {
+_plugin('config', function(K) {
 	var self = this,
 		shortcutKeys = {
 			undo : 'Z', redo : 'Y', bold : 'B', italic : 'I', underline : 'U', print : 'P', selectall : 'A'

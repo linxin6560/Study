@@ -16,9 +16,14 @@ import java.util.List;
 
 @Before(SessionInterceptor.class)
 public class FileController extends Controller {
+
     public void upload() {
         String path = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-        UploadFile file = getFile("imgFile", PathKit.getWebRootPath() + "/temp");
+        String dir = PathKit.getWebRootPath() + "\\temp";
+        if (!new File(dir).exists()) {
+            new File(dir).mkdirs();
+        }
+        UploadFile file = getFile("imgFile", dir);
         File source = file.getFile();
         String fileName = file.getFileName();
         String extension = fileName.substring(fileName.lastIndexOf("."));

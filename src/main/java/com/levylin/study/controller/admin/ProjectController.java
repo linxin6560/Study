@@ -4,7 +4,7 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.levylin.study.interceptor.SessionInterceptor;
-import com.levylin.study.pojo.Project;
+import com.levylin.study.model.Project;
 
 @Before(SessionInterceptor.class)
 public class ProjectController extends Controller {
@@ -12,8 +12,7 @@ public class ProjectController extends Controller {
 
     public void index() {
         Integer pageNum = getParaToInt("p", 1);
-        Page<Project> page = Project.dao.paginate(pageNum, 10, "select *",
-                "from project");
+        Page<Project> page = Project.dao.paginate(pageNum, 10, "select *", "from project");
         setAttr("page", page);
         render("project.html");
     }

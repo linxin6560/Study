@@ -8,10 +8,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
-import com.levylin.study.core.BlogConfig;
+import com.levylin.study.config.BlogConfig;
 import com.levylin.study.interceptor.SessionInterceptor;
-import com.levylin.study.pojo.CategorySub;
-import com.levylin.study.pojo.CategorySuper;
+import com.levylin.study.model.CategorySub;
+import com.levylin.study.model.CategorySuper;
 
 @Before(SessionInterceptor.class)
 public class CategoryController extends Controller {

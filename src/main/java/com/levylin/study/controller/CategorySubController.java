@@ -4,9 +4,9 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.ehcache.CacheKit;
 import com.jfinal.plugin.ehcache.IDataLoader;
-import com.levylin.study.core.BlogConstants;
-import com.levylin.study.pojo.Article;
-import com.levylin.study.pojo.CategorySub;
+import com.levylin.study.config.BlogConstants;
+import com.levylin.study.model.Article;
+import com.levylin.study.model.CategorySub;
 
 public class CategorySubController extends Controller {
     public void index() {
@@ -23,7 +23,7 @@ public class CategorySubController extends Controller {
             }
         });
         setAttr("page", page);
-        setAttr("title", "类别:" + categorySub.getStr(CategorySub.NAME) + " -- " + BlogConstants.TITLE);
+        setAttr("title", "类别:" + categorySub.getName() + " -- " + BlogConstants.TITLE);
         render("articles.html");
     }
 }

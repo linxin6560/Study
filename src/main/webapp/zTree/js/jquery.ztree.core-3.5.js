@@ -12,7 +12,7 @@
  */
 (function($){
 	var settings = {}, roots = {}, caches = {},
-	//default consts of core
+	//default consts of config
 	_consts = {
 		className: {
 			BUTTON: "button",
@@ -52,7 +52,7 @@
 			CURSELECTED: "curSelectedNode"
 		}
 	},
-	//default setting of core
+	//default setting of config
 	_setting = {
 		treeId: "",
 		treeObj: null,
@@ -120,7 +120,7 @@
 			onRemove:null
 		}
 	},
-	//default root of core
+	//default root of config
 	//zTree use root to save full data
 	_initRoot = function (setting) {
 		var r = data.getRoot(setting);
@@ -136,7 +136,7 @@
 		r.zId = 0;
 		r._ver = (new Date()).getTime();
 	},
-	//default cache of core
+	//default cache of config
 	_initCache = function(setting) {
 		var c = data.getCache(setting);
 		if (!c) {
@@ -146,7 +146,7 @@
 		c.nodes = [];
 		c.doms = [];
 	},
-	//default bindEvent of core
+	//default bindEvent of config
 	_bindEvent = function(setting) {
 		var o = setting.treeObj,
 		c = consts.event;
@@ -184,7 +184,7 @@
 		.unbind(c.ASYNC_SUCCESS)
 		.unbind(c.ASYNC_ERROR);
 	},	
-	//default event proxy of core
+	//default event proxy of config
 	_eventProxy = function(event) {
 		var target = event.target,
 		setting = data.getSetting(event.data.treeId),
@@ -266,7 +266,7 @@
 		};
 		return proxyResult
 	},
-	//default init node of core
+	//default init node of config
 	_initNode = function(setting, level, n, parentNode, isFirstNode, isLastNode, openFlag) {
 		if (!n) return;
 		var r = data.getRoot(setting),

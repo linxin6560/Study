@@ -4,7 +4,7 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.levylin.study.interceptor.SessionInterceptor;
-import com.levylin.study.pojo.User;
+import com.levylin.study.model.User;
 
 @Before(SessionInterceptor.class)
 public class UserController extends Controller {

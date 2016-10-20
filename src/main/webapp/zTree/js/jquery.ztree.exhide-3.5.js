@@ -277,7 +277,7 @@
 	data.addBeforeA(_beforeA);
 	data.addZTreeTools(_zTreeTools);
 
-//	Override method in core
+//	Override method in config
 	var _dInitNode = data.initNode;
 	data.tmpHideParent = -1;
 	data.initNode = function(setting, level, node, parentNode, isFirstNode, isLastNode, openFlag) {

@@ -7,8 +7,8 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.ehcache.CacheKit;
 import com.levylin.study.interceptor.SessionInterceptor;
-import com.levylin.study.pojo.Message;
-import com.levylin.study.pojo.User;
+import com.levylin.study.model.Message;
+import com.levylin.study.model.User;
 
 @Before(SessionInterceptor.class)
 public class IndexController extends Controller {
@@ -19,7 +19,7 @@ public class IndexController extends Controller {
         user = getModel(User.class);
         user = User.dao.findFirst(
                 "select * from user where username=? and password=?",
-                user.getStr(User.USERNAME), user.getStr(User.PASSWORD));
+                user.getUsername(), user.getPassword());
         JSONObject json = new JSONObject();
         if (user == null) {
             json.put("error", 1);

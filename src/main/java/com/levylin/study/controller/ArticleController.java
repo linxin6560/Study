@@ -7,10 +7,10 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.ehcache.CacheKit;
 import com.jfinal.plugin.ehcache.IDataLoader;
-import com.levylin.study.core.BlogConstants;
+import com.levylin.study.config.BlogConstants;
 import com.levylin.study.email.Email;
-import com.levylin.study.pojo.Article;
-import com.levylin.study.pojo.Comment;
+import com.levylin.study.model.Article;
+import com.levylin.study.model.Comment;
 
 public class ArticleController extends Controller {
     public void index() {
@@ -70,13 +70,13 @@ public class ArticleController extends Controller {
         Comment comment = getModel(Comment.class);
         comment.set("dateTime", new Date());
         comment.save();
-        Article article = Article.dao.findById(comment.getInt(Comment.ARTICLE_ID));
+        Article article = Article.dao.findById(comment.getArticleId());
         article.set("replyCount", article.getInt("replyCount") + 1).update();
-        CacheKit.remove("article", "id_" + comment.getInt(Comment.ARTICLE_ID));
+        CacheKit.remove("article", "id_" + comment.getArticleId());
         CacheKit.remove("article", "recently_comments");
         Email _email = new Email();
-        _email.setSubject("有来自" + comment.getStr(Comment.NICK) + "的新评论");
-        _email.setContent("<strong>内容</strong>:" + comment.getStr(Comment.CONTENT) + "<div><a href='http://abap.cloudfoundry.com/admin'>快去处理吧</a></div>");
+        _email.setSubject("有来自" + comment.getNick() + "的新评论");
+        _email.setContent("<strong>内容</strong>:" + comment.getContent() + "<div><a href='http://abap.cloudfoundry.com/admin'>快去处理吧</a></div>");
         _email.send();
         JSONObject json = new JSONObject();
         json.put("error", 0);

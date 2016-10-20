@@ -1,6 +1,6 @@
 package com.levylin.study.email;
 
-import com.levylin.study.core.BlogConstants;
+import com.levylin.study.config.BlogConstants;
 
 import java.util.Date;
 import java.util.Properties;

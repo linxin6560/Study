@@ -1,4 +1,4 @@
-package com.levylin.study.core;
+package com.levylin.study.config;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;

@@ -1,14 +1,16 @@
-package com.levylin.study.core;
+package com.levylin.study.config;
 
 import java.util.TimeZone;
 import java.util.TreeSet;
 
 import com.jfinal.kit.StrKit;
+import com.jfinal.plugin.activerecord.ModelRecordElResolver;
 import com.levylin.study.controller.*;
 import com.levylin.study.controller.admin.*;
 import com.levylin.study.handler.HtmlExtensionHandler;
 import com.levylin.study.lucene.ArticleLuceneService;
-import com.levylin.study.pojo.*;
+import com.levylin.study.model.CategorySuper;
+import com.levylin.study.model._MappingKit;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSONObject;
@@ -91,13 +93,7 @@ public class BlogConfig extends JFinalConfig {
             arp.setShowSql(true);
         }
         me.add(arp);
-        arp.addMapping("user", User.class);
-        arp.addMapping("article", Article.class);
-        arp.addMapping("comment", Comment.class);
-        arp.addMapping("category_sub", CategorySub.class);
-        arp.addMapping("category_super", CategorySuper.class);
-        arp.addMapping("project", Project.class);
-        arp.addMapping("message", Message.class);
+        _MappingKit.mapping(arp);
     }
 
     @Override
@@ -115,19 +111,6 @@ public class BlogConfig extends JFinalConfig {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
         BlogConstants.PAGE_SIZE = getPropertyToInt("pageSize");
         BlogConstants.TITLE = getProperty("title");
-        BlogConstants.EMAIL_USERNAME = getProperty("email_username");
-        BlogConstants.EMAIL_PASSWORD = getProperty("email_password");
-        BlogConstants.EMAIL_PROTOCOL = getProperty("email_protocol", "smtp");
-        BlogConstants.EMAIL_HOST = getProperty("email_host");
-        if (StrKit.isBlank(BlogConstants.EMAIL_USERNAME)) {
-            System.out.println("ERROR:用户名为空!!!");
-        }
-        if (StrKit.isBlank(BlogConstants.EMAIL_PASSWORD)) {
-            System.out.println("ERROR:邮箱密码为空!!!");
-        }
-        if (StrKit.isBlank(BlogConstants.EMAIL_HOST)) {
-            System.out.println("ERROR:邮箱服务器为空!!!");
-        }
         try {
             FreeMarkerRender.getConfiguration().setSharedVariable("title", BlogConstants.TITLE);
         } catch (TemplateModelException e) {
@@ -139,10 +122,8 @@ public class BlogConfig extends JFinalConfig {
 
     public static void updateCategorySuperList() {
         try {
-            FreeMarkerRender.getConfiguration().setSharedVariable(
-                    "categorySuperList",
-                    new TreeSet<CategorySuper>(CategorySuper.dao
-                            .find("select * from category_super")));
+            TreeSet<CategorySuper> treeSet = new TreeSet<CategorySuper>(CategorySuper.dao.find("select * from category_super"));
+            FreeMarkerRender.getConfiguration().setSharedVariable("categorySuperList", treeSet);
         } catch (TemplateModelException e) {
             log.error("set freemarkerrender share variable categorySuperList failed", e);
         }
